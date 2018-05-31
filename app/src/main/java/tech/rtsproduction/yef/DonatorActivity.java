@@ -1,9 +1,13 @@
 package tech.rtsproduction.yef;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -12,6 +16,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -48,18 +53,20 @@ public class DonatorActivity extends AppCompatActivity {
     ListView donatorList;
     SwipeRefreshLayout swipeRefreshLayout;
     NavigationView navigationView;
-    ArrayList<String> keyValues = new ArrayList<>();
+    private NotificationManagerCompat manager;
     ArrayList<DonatorClass> donatorResults = new ArrayList<>();
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("RECORDS");
+    DatabaseReference recordRef = database.getReference("RECORDS");
     DatabaseReference alertRef = database.getReference("ALERTS");
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donators__page);
+        createNotificationChannel();
 
+        manager = NotificationManagerCompat.from(this);
         requestBloodBtn = findViewById(R.id.bloodRequest);
         homeProgress = findViewById(R.id.homeProgress);
         donatorList = findViewById(R.id.postList);
@@ -124,15 +131,20 @@ public class DonatorActivity extends AppCompatActivity {
         alertRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(DonatorActivity.this, "0");
-                mBuilder.setSmallIcon(R.drawable.ic_stat_name);
-                mBuilder.setContentTitle("Notification Alert, Click Me!");
-                mBuilder.setContentText("Hi, This is Android Notification Detail!");
-                NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-// notificationID allows you to update the notification later on.
-                mNotificationManager.notify(0, mBuilder.build());
-                Toast.makeText(DonatorActivity.this, dataSnapshot.getValue().toString(), Toast.LENGTH_LONG).show();
+                String bloodGroup = dataSnapshot.child("BloodGroup").getValue().toString();
+                String msg = dataSnapshot.child("Msg").getValue().toString();
+                Bitmap notificationIcon = BitmapFactory.decodeResource(getResources(), R.drawable.blood);
+                Notification notification = new NotificationCompat.Builder(DonatorActivity.this, "Channel1")
+                        .setSmallIcon(R.drawable.ic_stat_name)
+                        .setContentTitle("YEF Urgent Request")
+                        .setLargeIcon(notificationIcon)
+                        .setColor(Color.BLUE)
+                        .setOnlyAlertOnce(true)
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(msg).setBigContentTitle(bloodGroup + " Required"))
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                        .build();
+                manager.notify(1, notification);
             }
 
             @Override
@@ -155,13 +167,11 @@ public class DonatorActivity extends AppCompatActivity {
     }
 
     private void fetchData(final RequestAdapter adapter) {
-        keyValues.clear();
         donatorResults.clear();
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        recordRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                    keyValues.add(dsp.getKey());
                     populateDonatorResults(dsp);
                     homeProgress.setVisibility(View.GONE);
                     swipeRefreshLayout.setRefreshing(false);
@@ -178,7 +188,7 @@ public class DonatorActivity extends AppCompatActivity {
 
     }
 
-    void setUpToolBar() {
+    public void setUpToolBar() {
         toolbar = findViewById(R.id.toolbar);
         drawerLayout = findViewById(R.id.drawerLayout);
         setSupportActionBar(toolbar);
@@ -188,7 +198,7 @@ public class DonatorActivity extends AppCompatActivity {
     }
 
 
-    void populateDonatorResults(DataSnapshot dsp) {
+    private void populateDonatorResults(@NonNull DataSnapshot dsp) {
         DonatorClass object = new DonatorClass();
         object.setDonatorName(dsp.child("donatorName").getValue().toString());
         object.setBloodRequired(dsp.child("bloodRequired").getValue().toString());
@@ -199,6 +209,15 @@ public class DonatorActivity extends AppCompatActivity {
         object.setReleation(dsp.child("releation").getValue().toString());
         object.setRequestDate(dsp.child("requestDate").getValue().toString());
         donatorResults.add(object);
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel1 = new NotificationChannel("Channel1", "Channel 1", NotificationManager.IMPORTANCE_DEFAULT);
+            channel1.setDescription("This is Notification");
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel1);
+        }
     }
 
 

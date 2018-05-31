@@ -26,7 +26,6 @@ import java.util.HashMap;
 
 public class AlertActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("ALERTS");
 

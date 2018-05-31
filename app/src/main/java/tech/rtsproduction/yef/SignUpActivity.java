@@ -86,7 +86,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void signupSuccessful() {
-        Intent intent = new Intent(SignUpActivity.this, AlertActivity.class);
+        Intent intent = new Intent(SignUpActivity.this, DonatorActivity.class);
         startActivity(intent);
         finish();
     }

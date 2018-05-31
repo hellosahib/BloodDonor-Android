@@ -10,22 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AlertActivity"
-            android:parentActivityName=".DonatorActivity"
-            android:label="Alert Users"/>
-        <activity android:name=".LoginActivity"
-            android:label="Login Screen">
+            android:parentActivityName=".DonatorActivity" />
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity"
-            android:label="Sign Up Screen"/>
+        <activity android:name=".SignUpActivity" />
         <activity android:name=".DonatorActivity" />
         <activity android:name=".BloodtypeActivity" />
-        <activity android:name=".RequestFormActivity"
-            android:label="Request Form"/>
+        <activity android:name=".RequestFormActivity" />
         <activity android:name=".DetailViewActivity"/>
     </application>
 
