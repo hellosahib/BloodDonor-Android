@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroun"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/iconImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:contentDescription="IconView"
+        android:src="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/appTitleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iconImage"
+        android:text="Blood Donor"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appTitleText"
+        android:layout_marginTop="56dp"
+        android:hint="Enter your ID"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailEditText"
+        android:layout_marginTop="16dp"
+        android:hint="Password"
+        android:inputType="textPassword" />
+    <!-- Need to make  button a  cardView -->
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/passwordEditText"
+        android:layout_marginTop="36dp"
+        android:background="@color/colorPrimary"
+        android:text="Login"
+        android:textColor="#FFF" />
+
+    <Button
+        android:id="@+id/registerBtn"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_alignBaseline="@id/loginBtn"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="36dp"
+        android:background="@color/colorPrimary"
+        android:text="Register Here"
+        android:textColor="#FFF" />
+
+
+</RelativeLayout>
