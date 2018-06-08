@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">YEF</string>
+    <string name="appicon">AppIcon</string>
+    <string name="name">NAME</string>
+    <string name="email">EMAIL</string>
+    <string name="password">PASSWORD</string>
+    <string name="confirm_password">CONFIRM PASSWORD</string>
+    <string name="acceptTermsMsg">I have read and accept all the terms</string>
+    <string name="sign_up">Sign Up</string>
 </resources>

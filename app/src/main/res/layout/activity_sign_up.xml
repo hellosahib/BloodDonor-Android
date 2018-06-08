@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpActivity"
     android:focusableInTouchMode="true"
-    android:background="@android:color/white">
+    tools:context=".SignUpActivity">
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -14,32 +12,36 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@android:color/white">
+
             <ImageView
                 android:id="@+id/logoView"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginLeft="70dp"
                 android:layout_marginRight="70dp"
-                android:src="@drawable/logo_yef"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/appicon"
+                android:src="@drawable/logo_yef" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/input_layout_user"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/logoView"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:gravity="center_horizontal"
-                android:layout_below="@id/logoView"
-                android:hint="NAME"
-                >
+                android:hint="@string/name">
+
                 <EditText
                     android:id="@+id/username"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/person"
                     android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/person"
+                    android:inputType="textPersonName"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
@@ -47,18 +49,19 @@
                 android:id="@+id/input_layout_email"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/input_layout_user"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:gravity="center_horizontal"
-                android:layout_below="@id/input_layout_user"
-                android:hint="EMAIL"
-                >
+                android:hint="@string/email">
+
                 <EditText
                     android:id="@+id/email"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/email"
                     android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/email"
+                    android:inputType="textEmailAddress"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
@@ -66,18 +69,19 @@
                 android:id="@+id/input_layout_pass"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/input_layout_email"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:gravity="center_horizontal"
-                android:layout_below="@id/input_layout_email"
-                android:hint="PASSWORD"
-                >
+                android:hint="@string/password">
+
                 <EditText
                     android:id="@+id/pass"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/lock"
                     android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/lock"
+                    android:inputType="textPassword"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
@@ -85,18 +89,20 @@
                 android:id="@+id/input_layout_confirmpass"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/input_layout_pass"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:gravity="center_horizontal"
-                android:layout_below="@id/input_layout_pass"
-                android:hint="CONFIRM PASSWORD"
-                >
+                android:hint="@string/confirm_password">
+
                 <EditText
+
                     android:id="@+id/confirm_pass"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/lock"
                     android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/lock"
+                    android:inputType="textPassword"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
@@ -107,28 +113,30 @@
                 android:layout_below="@+id/input_layout_confirmpass"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp">
+
                 <CheckBox
+                    android:id="@+id/termsCheckbox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="I have read and accept all the terms"/>
+                    android:text="@string/acceptTermsMsg" />
             </LinearLayout>
+
             <Button
                 android:id="@+id/sign_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/terms"
                 android:layout_centerHorizontal="true"
+                android:layout_marginBottom="40dp"
                 android:layout_marginTop="20dp"
-                android:text="Sign Up"
                 android:background="@drawable/login_button"
-                android:textColor="@android:color/white"
                 android:onClick="onClickSignUp"
-                android:layout_marginBottom="40dp"/>
-
-
+                android:text="@string/sign_up"
+                android:textColor="@android:color/white" />
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
