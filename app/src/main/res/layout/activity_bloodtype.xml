@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingEnd="0dp"
+    android:paddingStart="36dp"
+    android:paddingTop="36dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/opositive"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/round_button"
+            android:onClick="gotoRequestForm"
+            android:text="O+" />
+
+        <Button
+            android:id="@+id/apositive"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/round_button"
+            android:onClick="gotoRequestForm"
+            android:text="A+" />
+
+        <Button
+            android:id="@+id/bpositive"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/round_button"
+            android:onClick="gotoRequestForm"
+            android:text="B+" />
+
+        <Button
+            android:id="@+id/abpositive"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/round_button"
+            android:onClick="gotoRequestForm"
+            android:text="AB+" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/onegative"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/round_button"
+            android:onClick="gotoRequestForm"
+            android:text="O-" />
+
+        <Button
+            android:id="@+id/anegative"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/round_button"
+            android:onClick="gotoRequestForm"
+            android:text="A-" />
+
+        <Button
+            android:id="@+id/bnegative"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/round_button"
+            android:onClick="gotoRequestForm"
+            android:text="B-" />
+
+        <Button
+            android:id="@+id/abnegative"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/round_button"
+            android:onClick="gotoRequestForm"
+            android:text="AB-" />
+    </LinearLayout>
+</LinearLayout>

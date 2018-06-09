@@ -17,8 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity"/>
-        <activity android:name=".DonatorActivity"/>
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".DonatorActivity" />
+        <activity android:name=".BloodtypeActivity" />
+        <activity android:name=".RequestFormActivity"></activity>
     </application>
 
 </manifest>

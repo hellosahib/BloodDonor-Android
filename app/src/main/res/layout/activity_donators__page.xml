@@ -111,11 +111,17 @@
                 android:visibility="gone"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:text="REFRESH"
-                android:layout_centerInParent="true"
                 android:onClick="onClickRefresh"
                 />
 
         </LinearLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="16dp"
+            android:id="@+id/bloodRequest"/>
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView

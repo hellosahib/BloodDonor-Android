@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="36dp">
+
+        <Button
+            android:id="@+id/bloodSelected"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/round_button"
+            android:text="O+" />
+
+        <TextView
+            android:id="@+id/patientNameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bloodSelected"
+            android:layout_marginTop="16dp"
+            android:text="Patient Name"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/patientNameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/patientNameText"
+            android:hint="Enter Patient Name"
+            android:textColor="@android:color/black"
+            android:inputType="textPersonName"/>
+
+        <TextView
+            android:id="@+id/releationText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/patientNameEdit"
+            android:layout_marginTop="16dp"
+            android:text="Releation With Patient"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/releationEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/releationText"
+            android:hint="Enter Your Releation With Patient"
+            android:textColor="@android:color/black"
+            android:inputType="text"/>
+
+        <TextView
+            android:id="@+id/mobileText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/releationEdit"
+            android:layout_marginTop="16dp"
+            android:text="Mobile Number"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/mobileEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mobileText"
+            android:hint="Enter Your Mobile Number"
+            android:textColor="@android:color/black"
+            android:inputType="number"/>
+
+        <TextView
+            android:id="@+id/requestTypeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mobileEdit"
+            android:layout_marginTop="16dp"
+            android:text="Request For"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/requestTypeText"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/platletRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="36dp"
+                android:text="Platlets"
+                android:textSize="24sp" />
+
+            <RadioButton
+                android:id="@+id/bloodRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blood"
+                android:textSize="24sp" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/unitText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/radioGroup"
+            android:layout_marginTop="16dp"
+            android:text="Number of Units"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/unitsSeek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/unitText"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:background="@drawable/login_button"
+            android:layout_below="@id/unitsSeek"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:id="@+id/submitBtn"/>
+    </RelativeLayout>
+</ScrollView>
