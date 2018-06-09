@@ -89,21 +89,25 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onClickLogin(View view) {
-        mAuth.signInWithEmailAndPassword(username.getEditText().getText().toString(), pass.getEditText().getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "Sign in Successful", Toast.LENGTH_SHORT).show();
-                    loginSuccessful();
-                } else {
-                    Toast.makeText(LoginActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        if(!username.getEditText().getText().toString().isEmpty() && !pass.getEditText().getText().toString().isEmpty()){
+            mAuth.signInWithEmailAndPassword(username.getEditText().getText().toString(), pass.getEditText().getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(LoginActivity.this, "Sign in Successful", Toast.LENGTH_SHORT).show();
+                        loginSuccessful();
+                    } else {
+                        Toast.makeText(LoginActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });   
+        }else{
+            Toast.makeText(this, "Please Fill Crenditials", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void loginSuccessful() {
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        Intent intent = new Intent(LoginActivity.this, DonatorActivity.class);
         startActivity(intent);
         finish();
     }
