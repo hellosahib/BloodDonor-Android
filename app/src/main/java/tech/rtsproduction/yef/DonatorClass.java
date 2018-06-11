@@ -2,9 +2,10 @@ package tech.rtsproduction.yef;
 
 import com.google.firebase.database.DataSnapshot;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class DonatorClass {
+public class DonatorClass implements Serializable {
 
     private String donatorName;
     private String releation;

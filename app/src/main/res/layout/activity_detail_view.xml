@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/dateHeadingText"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="8dp"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="16sp"
+            tools:text="11 June,2018" />
+
+        <TextView
+            android:id="@+id/personNameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingEnd="8dp"
+            android:paddingStart="0dp"
+            android:paddingTop="8dp"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="20sp"
+            tools:text="Person Name" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/blood" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/darker_gray"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/locationHeadingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/locationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/locationHeadingText"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/locationHeadingText"
+            android:textAlignment="viewEnd"
+            android:textSize="20sp"
+            tools:text="New Delhi" />
+
+        <TextView
+            android:id="@+id/phoneHeadingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/locationHeadingText"
+            android:layout_marginTop="16dp"
+            android:text="Phone Number"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/phoneText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/phoneHeadingText"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/phoneHeadingText"
+            android:autoLink="phone"
+            android:textAlignment="viewEnd"
+            android:textSize="20sp"
+            tools:text="998877665544" />
+
+        <TextView
+            android:id="@+id/bloodGroupHeadText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/phoneHeadingText"
+            android:layout_marginTop="16dp"
+            android:text="Blood Group"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/bloodGroupText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/bloodGroupHeadText"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/bloodGroupHeadText"
+            android:textAlignment="viewEnd"
+            android:textSize="20sp"
+            tools:text="AB+" />
+
+        <TextView
+            android:id="@+id/requiredHeadText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bloodGroupText"
+            android:layout_marginTop="16dp"
+            android:text="Required"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/requiredText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/requiredHeadText"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/requiredHeadText"
+            android:textAlignment="viewEnd"
+            android:textSize="20sp"
+            tools:text="Blood" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/reasonHeadingText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray"
+        android:paddingEnd="0dp"
+        android:paddingStart="16dp"
+        android:text="Reason"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/reasonText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray"
+        android:paddingEnd="0dp"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:textSize="20sp"
+        tools:text="Lorem Ipsum " />
+</LinearLayout>

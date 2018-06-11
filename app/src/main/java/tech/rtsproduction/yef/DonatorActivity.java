@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -32,7 +33,6 @@ public class DonatorActivity extends AppCompatActivity {
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
-    ProgressBar progressBar;
     FloatingActionButton requestBloodBtn;
     ListView donatorList;
     ArrayList<String> keyValues = new ArrayList<>();
@@ -45,21 +45,12 @@ public class DonatorActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donators__page);
-        setUpToolBar();
-        progressBar = findViewById(R.id.homeProgress);
+
         requestBloodBtn = findViewById(R.id.bloodRequest);
         donatorList = findViewById(R.id.postList);
+        setUpToolBar();
 
         final RequestAdapter adapter = new RequestAdapter(this, donatorResults);
-
-        requestBloodBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent gotoBloodType = new Intent(DonatorActivity.this, BloodtypeActivity.class);
-                gotoBloodType.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(gotoBloodType);
-            }
-        });
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -75,6 +66,24 @@ public class DonatorActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.i("FirebaseError", databaseError.getMessage());
+            }
+        });
+
+        requestBloodBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gotoBloodType = new Intent(DonatorActivity.this, BloodtypeActivity.class);
+                gotoBloodType.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(gotoBloodType);
+            }
+        });
+
+        donatorList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent gotoDetailView = new Intent(DonatorActivity.this, DetailViewActivity.class);
+                gotoDetailView.putExtra("currentObject", donatorResults.get(position));
+                startActivity(gotoDetailView);
             }
         });
 

@@ -17,6 +17,8 @@ public class RequestAdapter extends ArrayAdapter<DonatorClass> {
         super(context, 0, objects);
     }
 
+
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -40,7 +42,7 @@ public class RequestAdapter extends ArrayAdapter<DonatorClass> {
 
         donatorName.setText(currentItem.getDonatorName());
         bloodGroupText.setText(currentItem.getBloodType());
-        dateText.setText(currentItem.getRequestDate());
+        dateText.setText(currentItem.getLocation()+" at "+currentItem.getRequestDate());
         return parentView;
     }
 }

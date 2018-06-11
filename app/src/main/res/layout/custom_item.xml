@@ -1,50 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal"
     android:padding="16dp">
-<ImageView
-    android:layout_width="50dp"
-    android:layout_height="match_parent"
-    android:src="@drawable/blood"
-    android:id="@+id/bloodImage"
-    android:scaleType="fitCenter"/>
+
+    <ImageView
+        android:id="@+id/bloodImage"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:scaleType="fitCenter"
+        android:src="@drawable/blood" />
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Person Name"
-            android:textSize="24sp"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
             android:id="@+id/nameText"
-            />
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="B+"
-            android:textSize="20sp"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:textColor="@android:color/black"
-            android:id="@+id/bloodGroupText"/>
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="Person Name" />
+
         <TextView
+            android:id="@+id/bloodGroupText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="11 June 2018"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textColor="@android:color/black"
             android:textSize="20sp"
+            tools:text="B+" />
+
+        <TextView
             android:id="@+id/dateText"
-            />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textSize="20sp"
+            tools:text="Amritsar at 11 June 2018" />
     </LinearLayout>
+
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:src="@drawable/baseline_keyboard_arrow_right_black_36"
-        android:background="@android:color/white"
-        android:clickable="false"/>
+        android:background="@android:color/transparent"
+        android:clickable="false"
+        android:src="@drawable/baseline_keyboard_arrow_right_black_36" />
 </LinearLayout>
