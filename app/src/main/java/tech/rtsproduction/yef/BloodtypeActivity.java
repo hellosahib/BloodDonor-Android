@@ -21,5 +21,6 @@ public class BloodtypeActivity extends AppCompatActivity {
         Intent gotoForm = new Intent(BloodtypeActivity.this, RequestFormActivity.class);
         gotoForm.putExtra("bloodType", getBlood);
         startActivity(gotoForm);
+        finish();
     }
 }

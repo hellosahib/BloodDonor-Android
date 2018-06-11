@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,8 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/patientNameText"
             android:hint="Enter Patient Name"
-            android:textColor="@android:color/black"
-            android:inputType="textPersonName"/>
+            android:inputType="textPersonName"
+            android:textColor="@android:color/black" />
 
         <TextView
             android:id="@+id/releationText"
@@ -52,8 +52,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/releationText"
             android:hint="Enter Your Releation With Patient"
-            android:textColor="@android:color/black"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:textColor="@android:color/black" />
 
         <TextView
             android:id="@+id/mobileText"
@@ -71,8 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/mobileText"
             android:hint="Enter Your Mobile Number"
-            android:textColor="@android:color/black"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:textColor="@android:color/black" />
 
         <TextView
             android:id="@+id/locationText"
@@ -90,8 +90,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/locationText"
             android:hint="Enter Your Location"
-            android:textColor="@android:color/black"
-            android:inputType="textPostalAddress"/>
+            android:inputType="textPostalAddress"
+            android:textColor="@android:color/black" />
 
         <TextView
             android:id="@+id/requestTypeText"
@@ -123,31 +123,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Blood"
-                android:textSize="24sp"
-                />
+                android:textSize="24sp" />
         </RadioGroup>
 
-        <TextView
-            android:id="@+id/unitText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/radioGroup"
-            android:layout_marginTop="16dp"
-            android:text="Number of Units"
-            android:textSize="28sp"
-            android:textStyle="bold" />
-
-        <android.support.v7.widget.AppCompatSeekBar
-            android:id="@+id/unitsSeek"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/unitText"
-            android:layout_marginTop="16dp" />
         <TextView
             android:id="@+id/reasonText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/unitsSeek"
+            android:layout_below="@id/radioGroup"
             android:layout_marginTop="16dp"
             android:text="Reason"
             android:textSize="28sp"
@@ -160,17 +143,17 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/reasonText"
             android:hint="Enter the Reason for Blood Request"
-            android:textColor="@android:color/black"
-            android:inputType="textMultiLine"/>
+            android:inputType="textMultiLine"
+            android:textColor="@android:color/black" />
 
         <Button
+            android:id="@+id/submitBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Submit"
-            android:background="@drawable/login_button"
             android:layout_below="@id/reasonEdit"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="24dp"
-            android:id="@+id/submitBtn"/>
+            android:background="@drawable/login_button"
+            android:text="Submit" />
     </RelativeLayout>
 </ScrollView>

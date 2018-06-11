@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onClickLogin(View view) {
-        if(!username.getEditText().getText().toString().isEmpty() && !pass.getEditText().getText().toString().isEmpty()){
+        if (!username.getEditText().getText().toString().isEmpty() && !pass.getEditText().getText().toString().isEmpty()) {
             mAuth.signInWithEmailAndPassword(username.getEditText().getText().toString(), pass.getEditText().getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -100,8 +100,8 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-            });   
-        }else{
+            });
+        } else {
             Toast.makeText(this, "Please Fill Crenditials", Toast.LENGTH_SHORT).show();
         }
     }
