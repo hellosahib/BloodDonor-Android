@@ -1,5 +1,9 @@
 package tech.rtsproduction.yef;
 
+import com.google.firebase.database.DataSnapshot;
+
+import java.util.HashMap;
+
 public class DonatorClass {
 
     private String donatorName;

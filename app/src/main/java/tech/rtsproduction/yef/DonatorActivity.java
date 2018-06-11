@@ -11,10 +11,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DonatorActivity extends AppCompatActivity {
 
@@ -32,7 +35,8 @@ public class DonatorActivity extends AppCompatActivity {
     ProgressBar progressBar;
     FloatingActionButton requestBloodBtn;
     ListView donatorList;
-    ArrayList<String> donatorResults = new ArrayList<>();
+    ArrayList<String> keyValues = new ArrayList<>();
+    ArrayList<DonatorClass> donatorResults = new ArrayList<>();
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("RECORDS");
@@ -44,10 +48,9 @@ public class DonatorActivity extends AppCompatActivity {
         setUpToolBar();
         progressBar = findViewById(R.id.homeProgress);
         requestBloodBtn = findViewById(R.id.bloodRequest);
-
         donatorList = findViewById(R.id.postList);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, donatorResults);
 
+        final RequestAdapter adapter = new RequestAdapter(this, donatorResults);
 
         requestBloodBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,13 +65,16 @@ public class DonatorActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                    donatorResults.add(dsp.getKey() + " " + dsp.getValue().toString());
+                    keyValues.add(dsp.getKey());
+                    populateDonatorResults(dsp);
+
                 }
                 donatorList.setAdapter(adapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.i("FirebaseError", databaseError.getMessage());
             }
         });
 
@@ -81,5 +87,18 @@ public class DonatorActivity extends AppCompatActivity {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.app_name, R.string.app_name);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+    }
+
+    void populateDonatorResults(DataSnapshot dsp) {
+        DonatorClass object = new DonatorClass();
+        object.setDonatorName(dsp.child("donatorName").getValue().toString());
+        object.setBloodRequired(dsp.child("bloodRequired").getValue().toString());
+        object.setBloodType(dsp.child("bloodType").getValue().toString());
+        object.setLocation(dsp.child("location").getValue().toString());
+        object.setPhoneNo(dsp.child("phoneNo").getValue().toString());
+        object.setReason(dsp.child("reason").getValue().toString());
+        object.setReleation(dsp.child("releation").getValue().toString());
+        object.setRequestDate(dsp.child("requestDate").getValue().toString());
+        donatorResults.add(object);
     }
 }
