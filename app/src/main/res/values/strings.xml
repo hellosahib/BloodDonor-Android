@@ -3,8 +3,28 @@
     <string name="appicon">AppIcon</string>
     <string name="name">NAME</string>
     <string name="email">EMAIL</string>
-    <string name="password">PASSWORD</string>
     <string name="confirm_password">CONFIRM PASSWORD</string>
     <string name="acceptTermsMsg">I have read and accept all the terms</string>
     <string name="sign_up">Sign Up</string>
+    <string name="home">Home</string>
+    <string name="send_alert">Send Alert</string>
+    <string name="logout">Logout</string>
+    <string name="icon">Icon</string>
+    <string name="email_id">EMAIL ID</string>
+    <string name="password">PASSWORD</string>
+    <string name="login">Login</string>
+    <string name="now">now</string>
+    <string name="not_a_member">Not a member ?</string>
+    <string name="submit">Submit</string>
+
+    <string-array name="spinner_items">
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O-</item>
+        <item>O+</item>
+    </string-array>
 </resources>

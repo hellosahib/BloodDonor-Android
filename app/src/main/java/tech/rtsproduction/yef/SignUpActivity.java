@@ -2,7 +2,6 @@ package tech.rtsproduction.yef;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -87,7 +86,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void signupSuccessful() {
-        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+        Intent intent = new Intent(SignUpActivity.this, AlertActivity.class);
         startActivity(intent);
         finish();
     }
