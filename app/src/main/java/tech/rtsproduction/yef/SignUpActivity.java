@@ -38,7 +38,7 @@ public class SignUpActivity extends AppCompatActivity {
         userConfirmPass = findViewById(R.id.confirm_pass);
         termsCheck = findViewById(R.id.termsCheckbox);
         registerProgress = findViewById(R.id.registerProgress);
-        registerProgress.setVisibility(View.GONE);
+
 
     }
 
@@ -46,10 +46,10 @@ public class SignUpActivity extends AppCompatActivity {
         if (!userName.getText().toString().isEmpty() && !userEmail.getText().toString().isEmpty() && !userPass.getText().toString().isEmpty() && !userConfirmPass.getText().toString().isEmpty()) {
             if (userPass.getText().toString().matches(userConfirmPass.getText().toString())) {
                 if (termsCheck.isChecked()) {
-                    registerProgress.setVisibility(View.VISIBLE);
                     mAuth.createUserWithEmailAndPassword(userEmail.getText().toString(), userPass.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+                            registerProgress.setVisibility(View.VISIBLE);
                             if (task.isSuccessful()) {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 UserProfileChangeRequest nameUpdate = new UserProfileChangeRequest.Builder().setDisplayName(userName.getText().toString()).build();
@@ -79,6 +79,7 @@ public class SignUpActivity extends AppCompatActivity {
                             }
                         }
                     });
+
                 } else {
                     Toast.makeText(this, "Plese Check Terms and Condition", Toast.LENGTH_SHORT).show();
                 }
@@ -88,8 +89,7 @@ public class SignUpActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Please Fill All Blanks", Toast.LENGTH_SHORT).show();
         }
-        registerProgress.setVisibility(View.GONE);
-
+        //registerProgress.setVisibility(View.INVISIBLE);
     }
 
     private void signupSuccessful() {

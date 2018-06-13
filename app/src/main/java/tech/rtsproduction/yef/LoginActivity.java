@@ -18,6 +18,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     RelativeLayout loginView;
     Button login;
     TextInputLayout username, pass;
+    ProgressBar progressBar;
 
     private FirebaseAuth mAuth;
 
@@ -47,7 +49,9 @@ public class LoginActivity extends AppCompatActivity {
         pass = findViewById(R.id.input_layout_pass);
         loginView = findViewById(R.id.loginView);
         logoView = findViewById(R.id.loginLogo);
+        progressBar = findViewById(R.id.progressIndicator);
         mAuth = FirebaseAuth.getInstance();
+        progressBar.setVisibility(View.INVISIBLE);
 
         username.setHint(username.getHint().toString().toUpperCase());
         username.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onClickLogin(View view) {
         if (!username.getEditText().getText().toString().isEmpty() && !pass.getEditText().getText().toString().isEmpty()) {
+            progressBar.setVisibility(View.VISIBLE);
             mAuth.signInWithEmailAndPassword(username.getEditText().getText().toString(), pass.getEditText().getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -98,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(LoginActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
+                    progressBar.setVisibility(View.GONE);
                 }
             });
         } else {

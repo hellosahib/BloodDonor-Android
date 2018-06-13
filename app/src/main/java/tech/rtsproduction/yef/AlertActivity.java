@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Date;
 import java.util.HashMap;
 
 public class AlertActivity extends AppCompatActivity {
@@ -89,19 +90,18 @@ public class AlertActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mAuth = FirebaseAuth.getInstance();
-
+                Date date = new Date();
                 alertMsg = alertMsgEdit.getText().toString();
                 HashMap<String, String> object = new HashMap<>();
                 object.put("BloodGroup", bloodGroup);
                 object.put("Msg", alertMsg);
+                object.put("Date",date.toString());
                 if(mAuth.getUid()!= null){
                     myRef.child(mAuth.getUid()).setValue(object);
                 }
                 finish();
             }
         });
-
-
     }
 
     @Override

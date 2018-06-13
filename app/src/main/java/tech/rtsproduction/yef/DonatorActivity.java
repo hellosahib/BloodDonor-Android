@@ -193,9 +193,7 @@ public class DonatorActivity extends AppCompatActivity {
                 // TODO: Get info about the selected place.
                 locationSearch = place.getName().toString();
                 setupSearchResuls(adapter);
-
             }
-
             @Override
             public void onError(Status status) {
                 Log.i("placesSDK", "An error occurred: " + status);
