@@ -1,16 +1,14 @@
 package tech.rtsproduction.yef;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Context;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -21,17 +19,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -41,7 +41,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 
 public class DonatorActivity extends AppCompatActivity {
 
@@ -53,8 +53,11 @@ public class DonatorActivity extends AppCompatActivity {
     ListView donatorList;
     SwipeRefreshLayout swipeRefreshLayout;
     NavigationView navigationView;
-    private NotificationManagerCompat manager;
-    ArrayList<DonatorClass> donatorResults = new ArrayList<>();
+    Button searchBtn;
+
+    ArrayList<DonatorClass> parentResult = new ArrayList<>();
+    ArrayList<DonatorClass> searchResult = new ArrayList<>();
+    String locationSearch;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference recordRef = database.getReference("RECORDS");
@@ -66,14 +69,19 @@ public class DonatorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_donators__page);
         createNotificationChannel();
 
-        manager = NotificationManagerCompat.from(this);
         requestBloodBtn = findViewById(R.id.bloodRequest);
         homeProgress = findViewById(R.id.homeProgress);
         donatorList = findViewById(R.id.postList);
         swipeRefreshLayout = findViewById(R.id.swiperefresh);
         navigationView = findViewById(R.id.navigationView);
+        searchBtn = findViewById(R.id.searchButton);
+
+
+        final RequestAdapter adapter = new RequestAdapter(this, parentResult);
+        final RequestAdapter searchAdapter = new RequestAdapter(this, searchResult);
+        final PendingIntent pendingIntent = getPendingIntent();
         setUpToolBar();
-        final RequestAdapter adapter = new RequestAdapter(this, donatorResults);
+        setupLocationSearch(searchAdapter);
         fetchData(adapter);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -96,7 +104,7 @@ public class DonatorActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent gotoDetailView = new Intent(DonatorActivity.this, DetailViewActivity.class);
-                gotoDetailView.putExtra("currentObject", donatorResults.get(position));
+                gotoDetailView.putExtra("currentObject", parentResult.get(position));
                 startActivity(gotoDetailView);
             }
         });
@@ -134,7 +142,8 @@ public class DonatorActivity extends AppCompatActivity {
                 String bloodGroup = dataSnapshot.child("BloodGroup").getValue().toString();
                 String msg = dataSnapshot.child("Msg").getValue().toString();
                 Bitmap notificationIcon = BitmapFactory.decodeResource(getResources(), R.drawable.blood);
-                Notification notification = new NotificationCompat.Builder(DonatorActivity.this, "Channel1")
+
+                NotificationCompat.Builder notificationCompat = new NotificationCompat.Builder(DonatorActivity.this, "Channel1")
                         .setSmallIcon(R.drawable.ic_stat_name)
                         .setContentTitle("YEF Urgent Request")
                         .setLargeIcon(notificationIcon)
@@ -143,8 +152,10 @@ public class DonatorActivity extends AppCompatActivity {
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(msg).setBigContentTitle(bloodGroup + " Required"))
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                        .build();
-                manager.notify(1, notification);
+                        .setContentIntent(pendingIntent)
+                        .setAutoCancel(true);
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(DonatorActivity.this);
+                notificationManager.notify(1, notificationCompat.build());
             }
 
             @Override
@@ -166,8 +177,34 @@ public class DonatorActivity extends AppCompatActivity {
 
     }
 
+    private PendingIntent getPendingIntent() {
+        Intent notificationIntent = new Intent(this, NotificationDetail.class);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return PendingIntent.getActivity(this, 0, notificationIntent, 0);
+    }
+
+    private void setupLocationSearch(final RequestAdapter adapter) {
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+                locationSearch = place.getName().toString();
+                setupSearchResuls(adapter);
+
+            }
+
+            @Override
+            public void onError(Status status) {
+                Log.i("placesSDK", "An error occurred: " + status);
+            }
+        });
+    }
+
     private void fetchData(final RequestAdapter adapter) {
-        donatorResults.clear();
+        parentResult.clear();
         recordRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -176,6 +213,7 @@ public class DonatorActivity extends AppCompatActivity {
                     homeProgress.setVisibility(View.GONE);
                     swipeRefreshLayout.setRefreshing(false);
                 }
+                Collections.reverse(parentResult);
                 donatorList.setAdapter(adapter);
             }
 
@@ -208,7 +246,7 @@ public class DonatorActivity extends AppCompatActivity {
         object.setReason(dsp.child("reason").getValue().toString());
         object.setReleation(dsp.child("releation").getValue().toString());
         object.setRequestDate(dsp.child("requestDate").getValue().toString());
-        donatorResults.add(object);
+        parentResult.add(object);
     }
 
     private void createNotificationChannel() {
@@ -220,5 +258,14 @@ public class DonatorActivity extends AppCompatActivity {
         }
     }
 
-
+    private void setupSearchResuls(RequestAdapter searchAdapter) {
+        searchResult.clear();
+        ;
+        for (int i = 0; i < parentResult.size(); i++) {
+            if (parentResult.get(i).getLocation().equalsIgnoreCase(locationSearch)) {
+                searchResult.add(parentResult.get(i));
+            }
+        }
+        donatorList.setAdapter(searchAdapter);
+    }
 }

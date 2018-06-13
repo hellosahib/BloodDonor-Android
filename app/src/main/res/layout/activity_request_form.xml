@@ -83,21 +83,19 @@
             android:text="Location"
             android:textSize="28sp"
             android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/locationEdit"
+        <fragment
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/place_autocomplete_fragment"
+            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
             android:layout_below="@id/locationText"
-            android:hint="Enter Your Location"
-            android:inputType="textPostalAddress"
-            android:textColor="@android:color/black" />
+            />
 
         <TextView
             android:id="@+id/requestTypeText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/locationEdit"
+            android:layout_below="@id/place_autocomplete_fragment"
             android:layout_marginTop="16dp"
             android:text="Request For"
             android:textSize="28sp"

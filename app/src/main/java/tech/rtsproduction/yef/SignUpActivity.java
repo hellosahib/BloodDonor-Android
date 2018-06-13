@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,6 +22,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     EditText userName, userEmail, userPass, userConfirmPass;
     CheckBox termsCheck;
+    ProgressBar registerProgress;
 
     private FirebaseAuth mAuth;
 
@@ -35,6 +37,8 @@ public class SignUpActivity extends AppCompatActivity {
         userPass = findViewById(R.id.pass);
         userConfirmPass = findViewById(R.id.confirm_pass);
         termsCheck = findViewById(R.id.termsCheckbox);
+        registerProgress = findViewById(R.id.registerProgress);
+        registerProgress.setVisibility(View.GONE);
 
     }
 
@@ -42,6 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
         if (!userName.getText().toString().isEmpty() && !userEmail.getText().toString().isEmpty() && !userPass.getText().toString().isEmpty() && !userConfirmPass.getText().toString().isEmpty()) {
             if (userPass.getText().toString().matches(userConfirmPass.getText().toString())) {
                 if (termsCheck.isChecked()) {
+                    registerProgress.setVisibility(View.VISIBLE);
                     mAuth.createUserWithEmailAndPassword(userEmail.getText().toString(), userPass.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -53,6 +58,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             Log.i("Firebase-Private", "Name Updated");
+                                            signupSuccessful();
                                         } else {
                                             Log.i("Firebase-Private", task.getException().getLocalizedMessage());
                                         }
@@ -63,7 +69,6 @@ public class SignUpActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             Log.i("Firebase", "Verification Send");
-                                            signupSuccessful();
                                         } else {
                                             Log.i("Firebase", task.getException().getLocalizedMessage());
                                         }
@@ -83,6 +88,8 @@ public class SignUpActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Please Fill All Blanks", Toast.LENGTH_SHORT).show();
         }
+        registerProgress.setVisibility(View.GONE);
+
     }
 
     private void signupSuccessful() {

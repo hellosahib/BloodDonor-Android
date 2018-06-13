@@ -28,6 +28,7 @@ public class AlertActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("ALERTS");
+    private FirebaseAuth mAuth;
 
     Toolbar toolbar;
     DrawerLayout drawerLayout;
@@ -87,11 +88,15 @@ public class AlertActivity extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mAuth = FirebaseAuth.getInstance();
+
                 alertMsg = alertMsgEdit.getText().toString();
                 HashMap<String, String> object = new HashMap<>();
                 object.put("BloodGroup", bloodGroup);
                 object.put("Msg", alertMsg);
-                myRef.push().setValue(object);
+                if(mAuth.getUid()!= null){
+                    myRef.child(mAuth.getUid()).setValue(object);
+                }
                 finish();
             }
         });
@@ -120,7 +125,8 @@ public class AlertActivity extends AppCompatActivity {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.app_name, R.string.app_name);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 }

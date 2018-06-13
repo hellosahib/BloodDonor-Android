@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AlertActivity"
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC9et1kv07D-FYGqcTrNX99YoPP5aURuYE"/>
+        <activity
+            android:name=".AlertActivity"
             android:parentActivityName=".DonatorActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -21,8 +25,13 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".DonatorActivity" />
         <activity android:name=".BloodtypeActivity" />
-        <activity android:name=".RequestFormActivity" />
-        <activity android:name=".DetailViewActivity"/>
+        <activity android:name=".RequestFormActivity"
+            android:theme="@style/ToolBar"
+            android:label="Request Form"/>
+        <activity android:name=".DetailViewActivity"
+            android:theme="@style/ToolBar" />
+        <activity android:name=".NotificationDetail"
+            android:theme="@style/ToolBar"/>
     </application>
 
 </manifest>
